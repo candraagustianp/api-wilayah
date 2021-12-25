@@ -15,9 +15,7 @@ func GetRouting(app *fiber.App, db *gorm.DB) {
 func PublicRouting(router fiber.Router, db *gorm.DB) {
 	router.Get("/provinsi", controller.GetAllProvinsi(db))
 
-	router.Get("/kota", func(c *fiber.Ctx) error {
-		return c.SendString("get kota")
-	})
+	router.Get("/kota", controller.GetAllKota(db))
 
 	router.Get("/kecamatan", func(c *fiber.Ctx) error {
 		return c.SendString("get kecamatan")

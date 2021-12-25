@@ -34,3 +34,11 @@ func GetAll(db *gorm.DB, value interface{}) error {
 		return nil
 	}
 }
+
+func GetAllWhere(db *gorm.DB, value interface{}, condition string) error {
+	if result := db.Where(condition).Order("id asc").Find(value); result.Error != nil || result.RowsAffected < 1 {
+		return errors.New("failed get all data")
+	} else {
+		return nil
+	}
+}
