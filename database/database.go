@@ -2,6 +2,7 @@ package database
 
 import (
 	"api-wilayah/config"
+	"errors"
 	"fmt"
 
 	log "github.com/siruspen/logrus"
@@ -16,4 +17,20 @@ func ConnectDB(config *config.Config) *gorm.DB {
 	}
 	log.Infoln("Success initiate database connection")
 	return db
+}
+
+func AutoMigrate(db *gorm.DB, name string, tabel interface{}) {
+	if err := db.AutoMigrate(tabel); err != nil {
+		log.Fatalf("cannot migrate a tabel: %v", err)
+	} else {
+		log.Printf("success migrate a table: %s", name)
+	}
+}
+
+func GetAll(db *gorm.DB, value interface{}) error {
+	if result := db.Order("id asc").Find(value); result.Error != nil || result.RowsAffected < 1 {
+		return errors.New("failed get all data")
+	} else {
+		return nil
+	}
 }

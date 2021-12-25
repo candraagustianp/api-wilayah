@@ -1,6 +1,8 @@
 package router
 
 import (
+	"api-wilayah/controller"
+
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
 )
@@ -11,9 +13,7 @@ func GetRouting(app *fiber.App, db *gorm.DB) {
 }
 
 func PublicRouting(router fiber.Router, db *gorm.DB) {
-	router.Get("/provinsi", func(c *fiber.Ctx) error {
-		return c.SendString("get provinsi")
-	})
+	router.Get("/provinsi", controller.GetAllProvinsi(db))
 
 	router.Get("/kota", func(c *fiber.Ctx) error {
 		return c.SendString("get kota")
