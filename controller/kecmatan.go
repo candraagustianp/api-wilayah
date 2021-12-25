@@ -8,12 +8,12 @@ import (
 	"gorm.io/gorm"
 )
 
-func GetAllKota(db *gorm.DB) func(c *fiber.Ctx) error {
+func GetAllKecamatan(db *gorm.DB) func(c *fiber.Ctx) error {
 	return func(c *fiber.Ctx) error {
 		//intance to hold json received
-		kota := []model.KabKotas{}
+		kota := []model.Kecamatan{}
 
-		if err := database.GetAllWhere(db, &kota, "prov_id = 33"); err != nil {
+		if err := database.GetAllWhere(db, &kota, "id_kab = 3327"); err != nil {
 			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
 				"error": true,
 				"msg":   err.Error(),
