@@ -3,11 +3,20 @@ module api-wilayah
 go 1.17
 
 require (
+	github.com/gofiber/fiber/v2 v2.23.0
+	github.com/sirupsen/logrus v1.8.1
+	github.com/siruspen/logrus v1.7.1
+	github.com/subosito/gotenv v1.2.0
+	gorm.io/driver/mysql v1.2.2
+	gorm.io/gorm v1.22.4
+)
+
+require (
 	github.com/andybalholm/brotli v1.0.2 // indirect
-	github.com/gofiber/fiber/v2 v2.23.0 // indirect
+	github.com/go-sql-driver/mysql v1.6.0 // indirect
+	github.com/jinzhu/inflection v1.0.0 // indirect
+	github.com/jinzhu/now v1.1.3 // indirect
 	github.com/klauspost/compress v1.13.4 // indirect
-	github.com/sirupsen/logrus v1.8.1 // indirect
-	github.com/subosito/gotenv v1.2.0 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.31.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect

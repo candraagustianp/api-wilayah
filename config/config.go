@@ -8,7 +8,7 @@ import (
 	"github.com/subosito/gotenv"
 )
 
-type config struct {
+type Config struct {
 	Port       string
 	Timeout    int
 	DBUsername string
@@ -18,13 +18,18 @@ type config struct {
 	DBName     string
 }
 
-func InitConfig() *config {
+func InitConfig() *Config {
 	if err := gotenv.Load(".env"); err != nil {
 		log.Panic(err)
 	}
-	config := &config{
-		Port:    GetString("PORT"),
-		Timeout: GetInt("TIMEOUT"),
+	config := &Config{
+		Port:       GetString("PORT"),
+		Timeout:    GetInt("TIMEOUT"),
+		DBUsername: GetString("DB_USERNAME"),
+		DBPassword: GetString("DB_PASSWORD"),
+		DBHost:     GetString("DB_HOST"),
+		DBPort:     GetInt("DB_PORT"),
+		DBName:     GetString("DB_NAME"),
 	}
 
 	return config
