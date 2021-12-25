@@ -33,4 +33,6 @@ func connectDatabase(config *config.Config) *gorm.DB {
 
 func migrateTabel(db *gorm.DB) {
 	database.AutoMigrate(db, "provinsi", &model.Provinsi{})
+	database.AutoMigrate(db, "kab_kotas", &model.KabKotas{})
+
 }
