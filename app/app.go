@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"gorm.io/gorm"
 )
 
@@ -20,8 +21,13 @@ func runServer(conf *config.Config, db *gorm.DB) {
 	app := fiber.New(fiber.Config{
 		ReadTimeout: time.Second * time.Duration(conf.Timeout),
 	})
+	//cors definition
+	app.Use(cors.New())
+
+	//routing endpoint
 	router.GetRouting(app, db)
 
+	//listen server
 	app.Listen(":" + config.GetString("PORT"))
 }
 

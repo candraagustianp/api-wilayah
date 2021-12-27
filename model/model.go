@@ -1,8 +1,8 @@
 package model
 
 type Provinsi struct {
-	Id       int    `json:"id"`
-	ProvName string `json:"prov_name"`
+	Id   int    `json:"id"`
+	Name string `json:"name"`
 }
 
 type KabKotas struct {
