@@ -28,11 +28,10 @@ func runServer(conf *config.Config, db *gorm.DB) {
 	router.GetRouting(app, db)
 
 	//there is not endpoint
-	app.Use(func(c *fiber.Ctx) {
-		c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+	app.Use(func(c *fiber.Ctx) error {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
 			"error": true,
 			"msg":   "endpoint is not found",
-			"data":  nil,
 		})
 	})
 
