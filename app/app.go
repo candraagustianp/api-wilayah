@@ -32,6 +32,7 @@ func runServer(conf *config.Config, db *gorm.DB) {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
 			"error": true,
 			"msg":   "endpoint is not found",
+			"data":  nil,
 		})
 	})
 
