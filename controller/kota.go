@@ -13,7 +13,7 @@ func GetAllKota(db *gorm.DB) func(c *fiber.Ctx) error {
 		//intance to hold json received
 		kota := []model.KabKotas{}
 
-		if err := database.GetAllWhere(db, &kota, "prov_id = 33"); err != nil {
+		if err := database.GetAllWhere(db, &kota, "prov_id = "+c.Params("prov")); err != nil {
 			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
 				"error": true,
 				"msg":   err.Error(),

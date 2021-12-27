@@ -13,7 +13,7 @@ func GetAllKelurahan(db *gorm.DB) func(c *fiber.Ctx) error {
 		//intance to hold json received
 		kota := []model.Kelurahan{}
 
-		if err := database.GetAllWhere(db, &kota, "id_kec = 332710"); err != nil {
+		if err := database.GetAllWhere(db, &kota, "id_kec = "+c.Params("kec")); err != nil {
 			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
 				"error": true,
 				"msg":   err,
