@@ -47,5 +47,5 @@ func connectDatabase(config *config.Config) *gorm.DB {
 }
 
 func migrateTabel(db *gorm.DB) {
-	database.AutoMigrate(db, "kelurahan", &model.Spasial{})
+	database.AutoMigrate(db, "spasial", &model.Spasial{})
 }
