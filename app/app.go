@@ -47,9 +47,5 @@ func connectDatabase(config *config.Config) *gorm.DB {
 }
 
 func migrateTabel(db *gorm.DB) {
-	// 	database.AutoMigrate(db, "provinsi", &model.Provinsi{})
-	// 	database.AutoMigrate(db, "kab_kotas", &model.KabKotas{})
-	// 	database.AutoMigrate(db, "kecamatan", &model.Kecamatan{})
-	// 	database.AutoMigrate(db, "kelurahan", &model.Kelurahan{})
-	database.AutoMigrate(db, "kelurahan", &model.Kelurahan{})
+	database.AutoMigrate(db, "kelurahan", &model.Spasial{})
 }
