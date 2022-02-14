@@ -3,6 +3,7 @@ package app
 import (
 	"api-wilayah/config"
 	"api-wilayah/database"
+	"api-wilayah/model"
 	"api-wilayah/router"
 	"time"
 
@@ -13,7 +14,7 @@ import (
 
 func Run(config *config.Config) {
 	db := connectDatabase(config)
-	// migrateTabel(db)
+	migrateTabel(db)
 	runServer(config, db)
 }
 
@@ -45,9 +46,10 @@ func connectDatabase(config *config.Config) *gorm.DB {
 	return db
 }
 
-// func migrateTabel(db *gorm.DB) {
-// 	database.AutoMigrate(db, "provinsi", &model.Provinsi{})
-// 	database.AutoMigrate(db, "kab_kotas", &model.KabKotas{})
-// 	database.AutoMigrate(db, "kecamatan", &model.Kecamatan{})
-// 	database.AutoMigrate(db, "kelurahan", &model.Kelurahan{})
-// }
+func migrateTabel(db *gorm.DB) {
+	// 	database.AutoMigrate(db, "provinsi", &model.Provinsi{})
+	// 	database.AutoMigrate(db, "kab_kotas", &model.KabKotas{})
+	// 	database.AutoMigrate(db, "kecamatan", &model.Kecamatan{})
+	// 	database.AutoMigrate(db, "kelurahan", &model.Kelurahan{})
+	database.AutoMigrate(db, "kelurahan", &model.Kelurahan{})
+}
