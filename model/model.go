@@ -23,7 +23,7 @@ type Kelurahan struct {
 	Name  string `json:"name"`
 }
 
-type spasial struct {
+type Spasial struct {
 	ID       uint `gorm:"primarykey"`
 	IdDaerah int  `json:"id_daerah"`
 	Center   int  `json:"center"`
