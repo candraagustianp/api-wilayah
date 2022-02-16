@@ -16,6 +16,7 @@ type Config struct {
 	DBHost     string
 	DBPort     int
 	DBName     string
+	TmpDep     string
 }
 
 func InitConfig() *Config {
@@ -30,6 +31,7 @@ func InitConfig() *Config {
 		DBHost:     GetString("DB_HOST"),
 		DBPort:     GetInt("DB_PORT"),
 		DBName:     GetString("DB_NAME"),
+		TmpDep:     GetString("TMP_DEP"),
 	}
 
 	return config
