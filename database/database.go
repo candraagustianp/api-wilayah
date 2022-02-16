@@ -7,16 +7,27 @@ import (
 
 	log "github.com/siruspen/logrus"
 	"gorm.io/driver/mysql"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
-func ConnectDB(config *config.Config) *gorm.DB {
-	db, err := gorm.Open(mysql.Open(fmt.Sprintf("%s:%s@tcp(%s:%v)/%s?charset=utf8mb4&parseTime=True&loc=Local", config.DBUsername, config.DBPassword, config.DBHost, config.DBPort, config.DBName)))
-	if err != nil {
-		log.Fatalf("unable to initiate database connection: %v", err)
+func ConnectDB(conf *config.Config) *gorm.DB {
+	if conf.TmpDep == "local" {
+		db, err := gorm.Open(mysql.Open(fmt.Sprintf("%s:%s@tcp(%s:%v)/%s?charset=utf8mb4&parseTime=True&loc=Local", conf.DBUsername, conf.DBPassword, conf.DBHost, conf.DBPort, conf.DBName)))
+		if err != nil {
+			log.Fatalf("unable to initiate database connection: %v", err)
+		}
+		log.Infoln("Success initiate database connection")
+		return db
+	} else {
+		db, err := gorm.Open(postgres.Open(config.GetString("DATABASE_URL")))
+		if err != nil {
+			log.Fatalf("unable to initiate database connection")
+		}
+		log.Infoln("Success to initiate database connection")
+		return db
 	}
-	log.Infoln("Success initiate database connection")
-	return db
+
 }
 
 func AutoMigrate(db *gorm.DB, name string, tabel interface{}) {
