@@ -38,7 +38,11 @@ func runServer(conf *config.Config, db *gorm.DB) {
 	})
 
 	//listen server
-	app.Listen(":" + config.GetString("PORT"))
+	if conf.TmpDep == "local" {
+		app.Listen(":" + conf.Port)
+	} else {
+		app.Listen(":" + config.GetString("PORT"))
+	}
 }
 
 func connectDatabase(config *config.Config) *gorm.DB {
