@@ -20,4 +20,6 @@ func PublicRouting(router fiber.Router, db *gorm.DB) {
 	router.Get("/kecamatan/:kota", controller.GetAllKecamatan(db))
 
 	router.Get("/kelurahan/:kec", controller.GetAllKelurahan(db))
+
+	router.Get("/spasial/:spasial", controller.GetSpasialData(db))
 }
