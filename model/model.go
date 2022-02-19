@@ -38,6 +38,6 @@ type Spasial struct {
 
 type User struct {
 	ID       uint   `gorm:"primarykey"`
-	Username string `json:"username"`
+	Username string `json:"username" gorm:"unique"`
 	Password string `json:"password"`
 }
