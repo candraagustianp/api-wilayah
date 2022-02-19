@@ -42,3 +42,37 @@ func CreateUser(db *gorm.DB) func(c *fiber.Ctx) error {
 		})
 	}
 }
+
+func Login(db *gorm.DB) func(c *fiber.Ctx) error {
+	return func(c *fiber.Ctx) error {
+		user := &model.User{}
+
+		if err := c.BodyParser(user); err != nil {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+				"error": true,
+				"msg":   err.Error(),
+			})
+		}
+
+		pass := user.Password
+
+		if err := database.GetAllWhere(db, user, "username = '"+user.Username+"'"); err != nil {
+			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+				"error": true,
+				"msg":   err.Error(),
+			})
+		}
+
+		if !util.CheckPassHash(pass, user.Password) {
+			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+				"error": true,
+				"msg":   "password incorrect",
+			})
+		}
+
+		return c.Status(fiber.StatusOK).JSON(fiber.Map{
+			"error": false,
+			"msg":   "login success",
+		})
+	}
+}
