@@ -29,3 +29,29 @@ func GetAllKota(db *gorm.DB) func(c *fiber.Ctx) error {
 	}
 
 }
+
+func CreateKota(db *gorm.DB) func(c *fiber.Ctx) error {
+	return func(c *fiber.Ctx) error {
+		kota := &model.KabKotas{}
+
+		if err := c.BodyParser(kota); err != nil {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+				"error": true,
+				"msg":   err.Error(),
+			})
+		}
+
+		if err := database.SaveData(db, kota); err != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+				"error": true,
+				"msg":   err.Error(),
+			})
+		}
+
+		return c.Status(fiber.StatusCreated).JSON(fiber.Map{
+			"error": false,
+			"msg":   "success save data",
+			"data":  kota,
+		})
+	}
+}

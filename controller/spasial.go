@@ -26,3 +26,29 @@ func GetSpasialData(db *gorm.DB) func(c *fiber.Ctx) error {
 		}
 	}
 }
+
+func CreateSpasial(db *gorm.DB) func(c *fiber.Ctx) error {
+	return func(c *fiber.Ctx) error {
+		spa := &model.Spasial{}
+
+		if err := c.BodyParser(spa); err != nil {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+				"error": true,
+				"msg":   err.Error(),
+			})
+		}
+
+		if err := database.SaveData(db, spa); err != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+				"error": true,
+				"msg":   err.Error(),
+			})
+		}
+
+		return c.Status(fiber.StatusCreated).JSON(fiber.Map{
+			"error": false,
+			"msg":   "success save data",
+			"data":  spa,
+		})
+	}
+}

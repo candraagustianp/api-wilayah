@@ -29,3 +29,29 @@ func GetAllProvinsi(db *gorm.DB) func(c *fiber.Ctx) error {
 	}
 
 }
+
+func CreateProvinsi(db *gorm.DB) func(c *fiber.Ctx) error {
+	return func(c *fiber.Ctx) error {
+		prov := &model.Kecamatan{}
+
+		if err := c.BodyParser(prov); err != nil {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+				"error": true,
+				"msg":   err.Error(),
+			})
+		}
+
+		if err := database.SaveData(db, prov); err != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+				"error": true,
+				"msg":   err.Error(),
+			})
+		}
+
+		return c.Status(fiber.StatusCreated).JSON(fiber.Map{
+			"error": false,
+			"msg":   "success save data",
+			"data":  prov,
+		})
+	}
+}

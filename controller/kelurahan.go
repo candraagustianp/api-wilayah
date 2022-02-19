@@ -29,3 +29,29 @@ func GetAllKelurahan(db *gorm.DB) func(c *fiber.Ctx) error {
 	}
 
 }
+
+func CreateKelurahan(db *gorm.DB) func(c *fiber.Ctx) error {
+	return func(c *fiber.Ctx) error {
+		kel := &model.Kelurahan{}
+
+		if err := c.BodyParser(kel); err != nil {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+				"error": true,
+				"msg":   err.Error(),
+			})
+		}
+
+		if err := database.SaveData(db, kel); err != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+				"error": true,
+				"msg":   err.Error(),
+			})
+		}
+
+		return c.Status(fiber.StatusCreated).JSON(fiber.Map{
+			"error": false,
+			"msg":   "success save data",
+			"data":  kel,
+		})
+	}
+}
