@@ -3,6 +3,7 @@ package controller
 import (
 	"api-wilayah/database"
 	"api-wilayah/model"
+	"api-wilayah/util"
 
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
@@ -14,6 +15,15 @@ func CreateUser(db *gorm.DB) func(c *fiber.Ctx) error {
 
 		if err := c.BodyParser(user); err != nil {
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+				"error": true,
+				"msg":   err.Error(),
+			})
+		}
+
+		var err error
+		user.Password, err = util.HashPwd(user.Password)
+		if err != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 				"error": true,
 				"msg":   err.Error(),
 			})
