@@ -24,4 +24,7 @@ func PublicRouting(router fiber.Router, db *gorm.DB) {
 	router.Get("/spasial/:spasial", controller.GetSpasialData(db))
 
 	router.Post("/user", controller.CreateUser(db))
+
+	router.Post("/user/login", controller.Login(db))
+
 }
