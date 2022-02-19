@@ -53,3 +53,11 @@ func GetAllWhere(db *gorm.DB, value interface{}, condition string) error {
 		return nil
 	}
 }
+
+func SaveData(db *gorm.DB, value interface{}) error {
+	if result := db.Create(value); result.Error != nil {
+		return result.Error
+	} else {
+		return nil
+	}
+}
